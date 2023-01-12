@@ -1,0 +1,19 @@
+version: '3'
+services:
+  db:
+    container_name: bdd_ws
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: webservice
+      POSTGRES_PASSWORD: webservice
+      POSTGRES_DB: webservice
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - postgres_data:/var/lib/postgresql/data:rw
+    ports:
+      - "5432:5432"
+volumes:
+  postgres_data: {}
