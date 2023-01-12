@@ -1,3 +1,3 @@
 FROM postgres:14.1-alpine
-COPY ./init.sql /docker-entrypoint-initdb.d/
-COPY ./inserts.sql /docker-entrypoint-initdb.d/
+#COPY ./init.sql /docker-entrypoint-initdb.d/
+#COPY ./inserts.sql /docker-entrypoint-initdb.d/

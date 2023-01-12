@@ -12,7 +12,7 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload
 
 
 @Endpoint
-class CountryEndpoint @Autowired constructor(val trainRepository: TrainRepository) {
+class TrainEndpoint @Autowired constructor(val trainRepository: TrainRepository) {
     @PayloadRoot( namespace= "http://localhost:8080/ws/",localPart = "getTrainRequest")
     @ResponsePayload
     fun getTrain(@RequestPayload request: GetTrainRequest): GetTrainResponse {

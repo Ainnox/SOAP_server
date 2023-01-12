@@ -5,9 +5,9 @@ services:
     image: postgres:14.1-alpine
     restart: always
     environment:
-      POSTGRES_USER: webservice
-      POSTGRES_PASSWORD: webservice
-      POSTGRES_DB: webservice
+      POSTGRES_USER: 'webservice'
+      POSTGRES_PASSWORD: 'webservice'
+      POSTGRES_DB: 'webservice'
     build:
       context: .
       dockerfile: Dockerfile
