@@ -2,8 +2,9 @@
 		 xmlns:tns="http://localhost:8080/ws/">
    <soapenv:Header/>
    <soapenv:Body>
-      <tns:getTrainRequest>
-         <tns:id>1</tns:id>
-      </tns:getTrainRequest>
+      <tns:getUserRequest>
+         <tns:username>jd</tns:username>
+         <tns:password>1234</tns:password>
+      </tns:getUserRequest>
    </soapenv:Body>
 </soapenv:Envelope>

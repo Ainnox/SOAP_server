@@ -27,6 +27,32 @@
         </xs:sequence>
     </xs:complexType>
 
+    <xs:element name="getUserRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="username" type="xs:string"/>
+                <xs:element name="password" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getUserResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="user" type="User"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="User">
+        <xs:sequence>
+            <xs:element name="username" type="xs:string"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="last_name" type="xs:string"/>
+            <xs:element name="id" type="xs:int"/>
+        </xs:sequence>
+    </xs:complexType>
+
     <!--    <xs:simpleType name="currency">-->
     <!--        <xs:restriction base="xs:string">-->
     <!--            <xs:enumeration value="GBP"/>-->

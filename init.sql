@@ -1,6 +1,7 @@
 CREATE SCHEMA webservice;
 CREATE TABLE users(
     id SERIAL PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
     name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
     pwd VARCHAR(255) NOT NULL

@@ -14,7 +14,7 @@ class TrainRepository {
 
     @PostConstruct
     public fun initData(){
-        val spain = Train();
+        val spain = Train()
         spain.id = 1
         spain.start= "Paris"
         spain.dest= "Madrid"
