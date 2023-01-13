@@ -9,14 +9,14 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload
 import java.sql.DriverManager
 
 @Endpoint
-class TrainEndpoint @Autowired constructor(val trainRepository: TrainRepository) {
-    @PayloadRoot(namespace = "http://localhost:8080/ws/", localPart = "getTrainRequest")
-    @ResponsePayload
-    fun getTrain(@RequestPayload request: GetTrainRequest): GetTrainResponse {
-        val response = GetTrainResponse()
-        response.train = trainRepository.findTrain(request.id)
-        return response
-    }
+class TrainEndpoint @Autowired constructor() {
+//    @PayloadRoot(namespace = "http://localhost:8080/ws/", localPart = "getTrainRequest")
+//    @ResponsePayload
+//    fun getTrain(@RequestPayload request: GetTrainRequest): GetTrainResponse {
+//        val response = GetTrainResponse()
+//        response.train = trainRepository.findTrain(request.id)
+//        return response
+//    }
 
     @PayloadRoot(namespace = "http://localhost:8080/ws/", localPart = "getUserRequest")
     @ResponsePayload
