@@ -1,4 +1,4 @@
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xe="http://www.w3.org/2001/XMLSchema"
            targetNamespace="http://localhost:8080/ws/"
            xmlns="http://localhost:8080/ws/"
            elementFormDefault="qualified">
@@ -31,7 +31,7 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="username" type="xs:string"/>
-                <xs:element name="password" type="xs:string"/>
+                <xs:element name="pwd" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -53,11 +53,47 @@
         </xs:sequence>
     </xs:complexType>
 
-    <!--    <xs:simpleType name="currency">-->
-    <!--        <xs:restriction base="xs:string">-->
-    <!--            <xs:enumeration value="GBP"/>-->
-    <!--            <xs:enumeration value="EUR"/>-->
-    <!--            <xs:enumeration value="PLN"/>-->
-    <!--        </xs:restriction>-->
-    <!--    </xs:simpleType>-->
+    <xs:element name="subscribeRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="username" type="xs:string"/>
+                <xs:element name="name" type="xs:string"/>
+                <xs:element name="last_name" type="xs:string"/>
+                <xs:element name="pwd" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="subscribeResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="user" type="User"/>
+                <xs:element name="status" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getReservationsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="usr_id" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getReservationsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="reservations" type="Reservations" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="Reservations">
+        <xs:sequence>
+            <xs:element name="user" type="User"/>
+            <xs:element name="train" type="Train"/>
+            <xe:element name="cat" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
 </xs:schema>

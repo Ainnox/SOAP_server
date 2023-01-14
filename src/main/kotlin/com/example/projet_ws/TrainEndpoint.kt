@@ -10,13 +10,6 @@ import java.sql.DriverManager
 
 @Endpoint
 class TrainEndpoint @Autowired constructor() {
-//    @PayloadRoot(namespace = "http://localhost:8080/ws/", localPart = "getTrainRequest")
-//    @ResponsePayload
-//    fun getTrain(@RequestPayload request: GetTrainRequest): GetTrainResponse {
-//        val response = GetTrainResponse()
-//        response.train = trainRepository.findTrain(request.id)
-//        return response
-//    }
 
     @PayloadRoot(namespace = "http://localhost:8080/ws/", localPart = "getUserRequest")
     @ResponsePayload
@@ -28,7 +21,7 @@ class TrainEndpoint @Autowired constructor() {
         val statement = connection.createStatement()
         val resultSet = statement.executeQuery(
             "SELECT id,name,last_name FROM users WHERE username = '" + request.username + "' " +
-                    "and pwd = '" + request.password + "'"
+                    "and pwd = '" + request.pwd + "'"
         )
         val user = User()
         resultSet.next()
@@ -36,6 +29,29 @@ class TrainEndpoint @Autowired constructor() {
         user.name = resultSet.getString("name")
         user.lastName = resultSet.getString("last_name")
         response.user = user
+        return response
+    }
+
+    @PayloadRoot(namespace = "http://localhost:8080/ws/", localPart = "subscribeRequest")
+    @ResponsePayload
+    fun subscribe(@RequestPayload request: SubscribeRequest): SubscribeResponse {
+        val response = SubscribeResponse()
+        val connection = DriverManager.getConnection(
+            "jdbc:postgresql://localhost:5432/webservice", "webservice", "webservice"
+        )
+        val statement = connection.createStatement()
+        val resultSet = statement.executeQuery(
+            "SELECT id FROM users WHERE username = '${request.username}'"
+        )
+        if (resultSet.next()) {
+            response.status = "Username already exists"
+        } else {
+            statement.executeUpdate(
+                "INSERT INTO users (username, pwd, name, last_name) " +
+                        "VALUES ('${request.username}', '${request.pwd}', '${request.name}', '${request.lastName}')"
+            )
+            response.status = "OK"
+        }
         return response
     }
 }
