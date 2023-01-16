@@ -7,8 +7,6 @@ import org.springframework.ws.server.endpoint.annotation.Endpoint
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot
 import org.springframework.ws.server.endpoint.annotation.RequestPayload
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import java.sql.DriverManager
 
 @Endpoint
@@ -71,7 +69,7 @@ class TrainEndpoint @Autowired constructor() {
 
     @PayloadRoot(namespace = "http://localhost:8080/ws/", localPart = "getReservationsRequest")
     @ResponsePayload
-    fun getReservation(@RequestPayload request: GetReservationsRequest): GetReservationsResponse {
+    fun getReservations(@RequestPayload request: GetReservationsRequest): GetReservationsResponse {
         val response = GetReservationsResponse()
         val trainApi = TrainApi()
         val apiRep = trainApi.getReservations(request.usrId)
@@ -86,10 +84,28 @@ class TrainEndpoint @Autowired constructor() {
     fun getTrainStartDate(@RequestPayload request: GetTrainStartDateRequest): GetTrainStartDateResponse {
         val response = GetTrainStartDateResponse()
         val trainApi = TrainApi()
-        val apiRep = trainApi.getTrainStartDate(request.start, request.dest,request.dateStart)
+        val apiRep = trainApi.getTrainStartDate(request.start, request.dest, request.dateStart)
         for (train in apiRep) {
             response.trains.add(train)
         }
+        return response
+    }
+
+    @PayloadRoot(namespace = "http://localhost:8080/ws/", localPart = "getReservationRequest")
+    @ResponsePayload
+    fun getReservation(@RequestPayload request: GetReservationRequest): GetReservationResponse {
+        val response = GetReservationResponse()
+        val trainApi = TrainApi()
+        response.message = trainApi.getReservation(request.idTrain, request.idUser, request.classe, request.quantite)
+        return response
+    }
+
+    @PayloadRoot(namespace = "http://localhost:8080/ws/", localPart = "getAnnulationRequest")
+    @ResponsePayload
+    fun getAnnulation(@RequestPayload request: GetAnnulationRequest): GetAnnulationResponse {
+        val response = GetAnnulationResponse()
+        val trainApi = TrainApi()
+        response.status = trainApi.getAnnulation(request.idReservation, request.idUser)
         return response
     }
 }

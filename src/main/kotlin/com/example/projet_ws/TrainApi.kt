@@ -4,7 +4,6 @@ import localhost._8080.ws.Reservations
 import localhost._8080.ws.Train
 import org.springframework.web.client.RestTemplate
 import java.util.*
-import java.util.stream.Collectors
 
 class TrainApi {
     companion object TrainsUrl {
@@ -30,5 +29,15 @@ class TrainApi {
             trains = response.map {it.toSoapReserv() }.toMutableList()
 
         return trains
+    }
+
+    fun getReservation(userId: Int, trainId: Int, classe: String, quantite: Int): String? {
+        val url = trainsUrl + "reserver/train/$userId/$trainId/$quantite/$classe"
+        return restTemplate.getForObject(url, String::class.java)
+    }
+
+    fun getAnnulation(idTrain: Int, idUser: Int): String {
+        val url = trainsUrl + "annuler/reservation/$idUser/$idTrain"
+        return restTemplate.getForObject(url, String::class.java)!!
     }
 }
