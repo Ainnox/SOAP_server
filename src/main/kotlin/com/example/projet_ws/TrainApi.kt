@@ -1,5 +1,6 @@
 package com.example.projet_ws
 
+import localhost._8080.ws.Reservations
 import localhost._8080.ws.Train
 import org.springframework.web.client.RestTemplate
 import java.util.*
@@ -17,6 +18,16 @@ class TrainApi {
         var trains: MutableList<Train> = MutableList(0) { Train() }
         if (response != null)
             trains = response.map {it.toSoapTrain() }.toMutableList()
+
+        return trains
+    }
+
+    fun getReservations(userId: Int): MutableList<Reservations> {
+        val url = trainsUrl + "consulter/reservation/$userId"
+        val response = restTemplate.getForObject(url, Array<ReservRest>::class.java)
+        var trains: MutableList<Reservations> = MutableList(0) { Reservations() }
+        if (response != null)
+            trains = response.map {it.toSoapReserv() }.toMutableList()
 
         return trains
     }

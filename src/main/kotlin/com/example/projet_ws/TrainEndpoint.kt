@@ -73,7 +73,11 @@ class TrainEndpoint @Autowired constructor() {
     @ResponsePayload
     fun getReservation(@RequestPayload request: GetReservationsRequest): GetReservationsResponse {
         val response = GetReservationsResponse()
-        //TODO : REST request to get reservations
+        val trainApi = TrainApi()
+        val apiRep = trainApi.getReservations(request.usrId)
+        for (reservation in apiRep) {
+            response.reservations.add(reservation)
+        }
         return response
     }
 

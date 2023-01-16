@@ -98,9 +98,16 @@
 
     <xs:complexType name="Reservations">
         <xs:sequence>
-            <xs:element name="user" type="User"/>
-            <xs:element name="train" type="Train"/>
-            <xe:element name="cat" type="xs:string"/>
+            <xs:element name="id_reservation" type="xs:int"/>
+            <xs:element name="id_train" type="xs:int"/>
+            <xs:element name="id_user" type="xs:int"/>
+            <xs:element name="classe" type="xs:string"/>
+            <xs:element name="quantite" type="xs:int"/>
+            <xs:element name="prix" type="xs:double"/>
+            <xs:element name="heure_depart" type="xs:string"/>
+            <xs:element name="heure_arrivee" type="xs:string"/>
+            <xs:element name="lieu_depart" type="xs:string"/>
+            <xs:element name="lieu_arrivee" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
 </xs:schema>
