@@ -1,15 +1,29 @@
 package com.example.projet_ws
 
+import com.fasterxml.jackson.annotation.JsonProperty
 import localhost._8080.ws.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.ws.server.endpoint.annotation.Endpoint
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot
 import org.springframework.ws.server.endpoint.annotation.RequestPayload
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.sql.DriverManager
 
 @Endpoint
 class TrainEndpoint @Autowired constructor() {
+
+    data class TrainData(
+        @JsonProperty("id") val id: Int,
+        @JsonProperty("lieu_depart") val lieu_depart: String,
+        @JsonProperty("lieu_arrivee") val lieu_arrivee: String,
+        @JsonProperty("heure_depart") val heure_depart: String,
+        @JsonProperty("heure_arrivee") val heure_arrivee: String,
+        @JsonProperty("business_class_remaining") val businesse_places_remaining: Int,
+        @JsonProperty("first_class_remaining") val first_places_remaining: Int,
+        @JsonProperty("standard_class_remaining") val second_places_remaining: Int,
+    )
 
     @PayloadRoot(namespace = "http://localhost:8080/ws/", localPart = "getUserRequest")
     @ResponsePayload
@@ -51,6 +65,26 @@ class TrainEndpoint @Autowired constructor() {
                         "VALUES ('${request.username}', '${request.pwd}', '${request.name}', '${request.lastName}')"
             )
             response.status = "OK"
+        }
+        return response
+    }
+
+    @PayloadRoot(namespace = "http://localhost:8080/ws/", localPart = "getReservationsRequest")
+    @ResponsePayload
+    fun getReservation(@RequestPayload request: GetReservationsRequest): GetReservationsResponse {
+        val response = GetReservationsResponse()
+        //TODO : REST request to get reservations
+        return response
+    }
+
+    @PayloadRoot(namespace = "http://localhost:8080/ws/", localPart = "getTrainStartDateRequest")
+    @ResponsePayload
+    fun getTrainStartDate(@RequestPayload request: GetTrainStartDateRequest): GetTrainStartDateResponse {
+        val response = GetTrainStartDateResponse()
+        val trainApi = TrainApi()
+        val apiRep = trainApi.getTrainStartDate(request.start, request.dest,request.dateStart)
+        for (train in apiRep) {
+            response.trains.add(train)
         }
         return response
     }
