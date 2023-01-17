@@ -96,7 +96,7 @@ class TrainEndpoint @Autowired constructor() {
     fun getReservation(@RequestPayload request: GetReservationRequest): GetReservationResponse {
         val response = GetReservationResponse()
         val trainApi = TrainApi()
-        response.message = trainApi.getReservation(request.idTrain, request.idUser, request.classe, request.quantite)
+        response.message = trainApi.postReservation(request.idTrain, request.idUser, request.classe, request.quantite)
         return response
     }
 
@@ -105,7 +105,7 @@ class TrainEndpoint @Autowired constructor() {
     fun getAnnulation(@RequestPayload request: GetAnnulationRequest): GetAnnulationResponse {
         val response = GetAnnulationResponse()
         val trainApi = TrainApi()
-        response.status = trainApi.getAnnulation(request.idReservation, request.idUser)
+        response.status = trainApi.postAnnulation(request.idReservation, request.idUser)
         return response
     }
 }
